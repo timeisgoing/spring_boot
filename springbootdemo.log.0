@@ -1,0 +1,39 @@
+[2020-05-07 19:58:31.204] - 20084 信息 [restartedMain] --- com.wgl.cn.MainApplication: Starting MainApplication on G-O-D-20190322H with PID 20084 (E:\my_ot_code\BootDmoe\server\target\classes started by Administrator in E:\my_ot_code\BootDmoe)
+[2020-05-07 19:58:31.227] - 20084 信息 [restartedMain] --- com.wgl.cn.MainApplication: No active profile set, falling back to default profiles: default
+[2020-05-07 19:58:31.280] - 20084 信息 [restartedMain] --- org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext: Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@495caa45: startup date [Thu May 07 19:58:31 CST 2020]; root of context hierarchy
+[2020-05-07 19:58:32.440] - 20084 警告 [restartedMain] --- org.mybatis.spring.mapper.ClassPathMapperScanner: No MyBatis mapper was found in '[com.wgl.cn]' package. Please check your configuration.
+[2020-05-07 19:58:33.247] - 20084 信息 [restartedMain] --- org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer: Tomcat initialized with port(s): 8009 (http)
+[2020-05-07 19:58:33.256] - 20084 信息 [restartedMain] --- org.apache.catalina.core.StandardService: Starting service Tomcat
+[2020-05-07 19:58:33.257] - 20084 信息 [restartedMain] --- org.apache.catalina.core.StandardEngine: Starting Servlet Engine: Apache Tomcat/8.5.14
+[2020-05-07 19:58:33.349] - 20084 信息 [localhost-startStop-1] --- org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]: Initializing Spring embedded WebApplicationContext
+[2020-05-07 19:58:33.350] - 20084 信息 [localhost-startStop-1] --- org.springframework.web.context.ContextLoader: Root WebApplicationContext: initialization completed in 2070 ms
+[2020-05-07 19:58:33.505] - 20084 信息 [localhost-startStop-1] --- org.springframework.boot.web.servlet.ServletRegistrationBean: Mapping servlet: 'dispatcherServlet' to [/]
+[2020-05-07 19:58:33.512] - 20084 信息 [localhost-startStop-1] --- org.springframework.boot.web.servlet.FilterRegistrationBean: Mapping filter: 'characterEncodingFilter' to: [/*]
+[2020-05-07 19:58:33.514] - 20084 信息 [localhost-startStop-1] --- org.springframework.boot.web.servlet.FilterRegistrationBean: Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+[2020-05-07 19:58:33.515] - 20084 信息 [localhost-startStop-1] --- org.springframework.boot.web.servlet.FilterRegistrationBean: Mapping filter: 'httpPutFormContentFilter' to: [/*]
+[2020-05-07 19:58:33.515] - 20084 信息 [localhost-startStop-1] --- org.springframework.boot.web.servlet.FilterRegistrationBean: Mapping filter: 'requestContextFilter' to: [/*]
+[2020-05-07 19:58:33.953] - 20084 信息 [restartedMain] --- org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter: Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@495caa45: startup date [Thu May 07 19:58:31 CST 2020]; root of context hierarchy
+[2020-05-07 19:58:34.069] - 20084 信息 [restartedMain] --- org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+[2020-05-07 19:58:34.070] - 20084 信息 [restartedMain] --- org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+[2020-05-07 19:58:34.111] - 20084 信息 [restartedMain] --- org.springframework.web.servlet.handler.SimpleUrlHandlerMapping: Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[2020-05-07 19:58:34.112] - 20084 信息 [restartedMain] --- org.springframework.web.servlet.handler.SimpleUrlHandlerMapping: Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[2020-05-07 19:58:34.180] - 20084 信息 [restartedMain] --- org.springframework.web.servlet.handler.SimpleUrlHandlerMapping: Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[2020-05-07 19:58:34.241] - 20084 警告 [restartedMain] --- org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext: Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Tomcat.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.tomcat.jdbc.pool.DataSource]: Factory method 'dataSource' threw exception; nested exception is org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Cannot determine embedded database driver class for database type NONE. If you want an embedded database please put a supported one on the classpath. If you have database settings to be loaded from a particular profile you may need to active it (no profiles are currently active).
+[2020-05-07 19:58:34.243] - 20084 信息 [restartedMain] --- org.apache.catalina.core.StandardService: Stopping service Tomcat
+[2020-05-07 19:58:34.266] - 20084 信息 [restartedMain] --- org.springframework.boot.autoconfigure.logging.AutoConfigurationReportLoggingInitializer: 
+
+Error starting ApplicationContext. To display the auto-configuration report re-run your application with 'debug' enabled.
+[2020-05-07 19:58:34.272] - 20084 严重 [restartedMain] --- org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter: 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Cannot determine embedded database driver class for database type NONE
+
+Action:
+
+If you want an embedded database please put a supported one on the classpath. If you have database settings to be loaded from a particular profile you may need to active it (no profiles are currently active).
+
