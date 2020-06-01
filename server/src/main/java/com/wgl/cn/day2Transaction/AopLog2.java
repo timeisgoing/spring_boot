@@ -1,8 +1,8 @@
 package com.wgl.cn.day2Transaction;
 
-import org.aspectj.lang.ProceedingJoinPoint;
+/*import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Component;*/
 
 // 切面类
 /*

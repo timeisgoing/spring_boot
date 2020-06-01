@@ -16,6 +16,7 @@ public class Test {
     public static void main(String[] args) throws Exception {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
         ProductService productService = (ProductService) applicationContext.getBean("productService");
-        productService.add();
+        //productService.add();
+        productService.save();  //注解事物
     }
 }

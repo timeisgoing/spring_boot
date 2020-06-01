@@ -3,6 +3,7 @@ package com.wgl.cn.day2Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @Description TODO
@@ -18,7 +19,15 @@ public class ProductDao {
     public void add(String id, String money) {
         String sql = "INSERT INTO `buyflow`.`a`(`id`, `money`) VALUES (" + id + ", " + money + "); ";
         int update = jdbcTemplate.update(sql);
-        System.out.println(update);
+        System.out.println("affectRows: " + update);
+    }
+
+    //    注解事物
+
+    public void save(String id, String money) {
+        String sql = "INSERT INTO `buyflow`.`a`(`id`, `money`) VALUES (" + id + ", " + money + "); ";
+        int update = jdbcTemplate.update(sql);
+        System.out.println("affectRows: " + update);
     }
 
 

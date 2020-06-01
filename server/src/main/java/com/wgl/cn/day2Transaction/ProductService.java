@@ -3,6 +3,7 @@ package com.wgl.cn.day2Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @Description TODO
@@ -16,7 +17,7 @@ public class ProductService {
     private ProductDao productDao;
     @Autowired
     private TransactionUtils transactionUtils;
-//编程事物
+//1. 编程事物
 /*    public void add() {
         TransactionStatus ds = null;
         try {
@@ -41,13 +42,24 @@ Rolling back JDBC transaction on Connection [com.mchange.v2.c3p0.impl.NewProxyCo
 */
 
 
-    //aop事物
+    // 2. aop事物
     //service的异常不建议处理,抛出来.
     public void add() throws Exception {
-
         productDao.add("12", "12");
         int i = 1 / 0;
         productDao.add("9", "99");
-
     }
+
+
+
+    // 3. 注解事物
+    //service的异常不建议处理,抛出来.
+    @Transactional
+    public void save() throws Exception {
+        productDao.save("12", "12");
+        int i = 1 / 0;
+        productDao.save("9", "99");
+    }
+
+
 }

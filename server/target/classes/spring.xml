@@ -12,8 +12,17 @@
      	 http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!--	<bean id="user" class=""></bean>-->
+
+    <!-- 开启事物注解 -->
     <context:component-scan base-package="com.wgl.cn"></context:component-scan>
-    <aop:aspectj-autoproxy></aop:aspectj-autoproxy> <!-- 开启事物注解 -->
+
+
+    <!--此声明自动为spring容器中那些配置@aspectJ切面的bean创建代理，织入切面。
+    当然，spring在内部依旧采用AnnotationAwareAspectJAutoProxyCreator进行自动代理的创建工作，但具体实现的细节已经被<aop:aspectj-autoproxy />隐藏起来了
+    <aop:aspectj-autoproxy />有一个proxy-target-class属性，默认为false;，表示使用jdk动态代理织入增强，当配为<aop:aspectj-autoproxy  poxy-target-class="true"/>时，表示使用CGLib动态代理技术织入增强。不过即使proxy-target-class设置为false，如果目标类没有声明接口，则spring将自动使用CGLib动态代理。
+    -->
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+
 
     <!-- 1. 数据源对象: C3P0连接池 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -33,6 +42,6 @@
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"></property>
     </bean>
-<!--4开启事物注解-->
-
+    <!--4开启事物注解-->
+    <tx:annotation-driven transaction-manager="dataSourceTransactionManager"/>
 </beans>
