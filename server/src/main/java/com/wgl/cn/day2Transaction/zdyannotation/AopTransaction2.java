@@ -28,7 +28,6 @@ public class AopTransaction2 {
         System.out.println("开启事物 ");
         TransactionStatus begin = transactionUtils.begin();  //开启事物
 
-
         //这里判断此方法有没事物注解,要是有的话就开开启事物
         // // 判断是否有自定义事务注解
         ExtTransation declaredAnnotation = getExtTransaction(proceedingJoinPoint);
@@ -39,19 +38,14 @@ public class AopTransaction2 {
         System.out.println("开启事务");
         TransactionStatus transactionStatus = transactionUtils.begin();
 
-
         proceedingJoinPoint.proceed();// 执行拦截方法
-
 
         // 调用方法之后执行
         System.out.println("提交事物");
         if (transactionStatus != null) {
             transactionUtils.commit(begin);   //提交事物
         }
-
-
     }
-
 
     public ExtTransation getExtTransaction(ProceedingJoinPoint pjp) throws NoSuchMethodException, SecurityException {
         // 获取方法名称
@@ -70,9 +64,7 @@ public class AopTransaction2 {
             return null;
         }
         return declaredAnnotation;
-
     }
-
 
     // // 异常通知   ,执行的方法产生异常之后就会回滚
     @Around("execution(* com.wgl.cn.day2Transaction.zdyannotation.DaoService.save(..))")
@@ -81,7 +73,6 @@ public class AopTransaction2 {
         // 获取程序当前事务 进行回滚
         TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
     }
-
     //针对当前事物的异常产生回滚
     // 我发现即使事物没有回滚,发生报错也不会提交,这是因为已经开启乐意一个事物,报错,就没有提交
     //虽然结果上看一样,但是这个事物一直占用着内存,当错误过多时,栈(应该是栈)就炸了
