@@ -18,26 +18,30 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 手写Spring专题 注解版本注入bean
  *
- * @author 作者:余胜军
  */
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class ClassPathXmlApplicationContext {
-    // 扫包范围
+    // 扫包范围,效果等于xml文件中的 <context:component-scan...... 配置
     private String packageName;
     ConcurrentHashMap<String, Object> initBean = null;
 
-    public ClassPathXmlApplicationContext(String packageName) {
+    public ClassPathXmlApplicationContext(String packageName) { //参数给的是扫包的范围
         this.packageName = packageName;
     }
 
+
+
+
+
     // 使用beanID查找对象
     public Object getBean(String beanId) throws Exception {
-        // 1.使用反射机制获取该包下所有的类已经存在bean的注解类
+        // 1.使用反射机制获取该包下所有的类已经存在bean的注解类,这个方法就是返回包下的类中存在注解的类
         List<Class> listClassesAnnotation = findClassExisService();
+
         if (listClassesAnnotation == null || listClassesAnnotation.isEmpty()) {
             throw new Exception("没有需要初始化的bean");
         }
-        // 2.使用Java反射机制初始化对象
+        // 2.使用Java反射机制初始化对象,将有注解的类实例化并装入一个map中
         initBean = initBean(listClassesAnnotation);
         if (initBean == null || initBean.isEmpty()) {
             throw new Exception("初始化bean为空!");
@@ -47,6 +51,44 @@ public class ClassPathXmlApplicationContext {
         // 4.使用反射读取类的属性,赋值信息
         attriAssign(object);
         return object;
+    }
+
+
+    // 找到 包下所有的类已经存在bean的注解类
+    public List<Class> findClassExisService() throws Exception {
+        // 1.使用反射机制获取该包下所有的类
+        if (StringUtils.isEmpty(packageName)) {
+            throw new Exception("扫包地址不能为空!");
+        }
+        // 2.使用反射技术获取当前包下所有的类  ,这就得到多个类
+        List<Class<?>> classesByPackageName = ClassUtil.getClasses(packageName);
+
+        List<Class> exisClassesAnnotation = new ArrayList<Class>();
+        // 4.判断哪些类上存在注解
+        for (Class classInfo : classesByPackageName) {
+            ExtService extService = (ExtService) classInfo.getDeclaredAnnotation(ExtService.class);
+            // 3.类上有注解的存入集合
+            if (extService != null) {
+                exisClassesAnnotation.add(classInfo);
+                continue;
+            }
+        }
+        return exisClassesAnnotation;
+    }
+
+    // 初始化bean对象
+    public ConcurrentHashMap<String, Object> initBean(List<Class> listClassesAnnotation) throws InstantiationException, IllegalAccessException {
+      //listClassesAnnotation  存的的有注解的类 ,
+        ConcurrentHashMap concurrentHashMap = new ConcurrentHashMap<String, Object>();
+        for (Class classInfo : listClassesAnnotation) {
+            // 初始化对象 这里将这些bean通过class实例化
+            Object newInstance = classInfo.newInstance();
+            // 获取父类名称
+            String beanId = toLowerCaseFirstOne(classInfo.getSimpleName());
+            concurrentHashMap.put(beanId, newInstance);
+        }
+        // 在存取map,返回
+        return concurrentHashMap;
     }
 
     // 使用反射读取类的属性,赋值信息
@@ -70,39 +112,8 @@ public class ClassPathXmlApplicationContext {
 
     }
 
-    // 使用反射机制获取该包下所有的类已经存在bean的注解类
-    public List<Class> findClassExisService() throws Exception {
-        // 1.使用反射机制获取该包下所有的类
-        if (StringUtils.isEmpty(packageName)) {
-            throw new Exception("扫包地址不能为空!");
-        }
-        // 2.使用反射技术获取当前包下所有的类
-        List<Class<?>> classesByPackageName = com.wgl.cn.ioc.IOC注解版本.ClassUtil.getClasses(packageName);
-        // 3.存放类上有bean注入注解
-        List<Class> exisClassesAnnotation = new ArrayList<Class>();
-        // 4.判断该类上属否存在注解
-        for (Class classInfo : classesByPackageName) {
-           com.wgl.cn.ioc.IOC注解版本.ExtService extService = (com.wgl.cn.ioc.IOC注解版本.ExtService) classInfo.getDeclaredAnnotation(com.wgl.cn.ioc.IOC注解版本.ExtService.class);
-            if (extService != null) {
-                exisClassesAnnotation.add(classInfo);
-                continue;
-            }
-        }
-        return exisClassesAnnotation;
-    }
 
-    // 初始化bean对象
-    public ConcurrentHashMap<String, Object> initBean(List<Class> listClassesAnnotation) throws InstantiationException, IllegalAccessException {
-        ConcurrentHashMap concurrentHashMap = new ConcurrentHashMap<String, Object>();
-        for (Class classInfo : listClassesAnnotation) {
-            // 初始化对象
-            Object newInstance = classInfo.newInstance();
-            // 获取父类名称
-            String beanId = toLowerCaseFirstOne(classInfo.getSimpleName());
-            concurrentHashMap.put(beanId, newInstance);
-        }
-        return concurrentHashMap;
-    }
+
 
     // 首字母转小写
     public static String toLowerCaseFirstOne(String s) {
